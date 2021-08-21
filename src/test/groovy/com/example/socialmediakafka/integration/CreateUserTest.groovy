@@ -2,6 +2,7 @@ package com.example.socialmediakafka.integration
 
 import com.example.socialmediakafka.api.request.UserRequest
 import com.example.socialmediakafka.api.response.UserResponse
+import com.example.socialmediakafka.repository.UserRepository
 import org.junit.ClassRule
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -25,16 +26,39 @@ class CreateUserTest extends Specification {
     static GenericContainer postgreSQLContainer = ContainerUtils.getPostgres()
     @Autowired
     TestRestTemplate restTemplate
+
+    @Autowired
+    UserRepository userRepository
     def 'should not create an empty user' () {
 
         given:
-         def userRequest = new UserRequest("", "", "", "", 20)
+         def userRequest = new UserRequest("", "", "", "", 0)
         when:
         def response = restTemplate.postForEntity("/users", userRequest, UserResponse.class)
         then:
         assert response.statusCode.value() == 400
 
 
+    }
+
+    def 'should create a valid user' () {
+
+        given:
+        def userRequest = new UserRequest("user", "user@email,com.br", "password", "city", 10)
+        when:
+        def response = restTemplate.postForEntity("/users", userRequest, UserResponse.class)
+        then:
+
+        assert response.statusCode.value() == 201
+        def userId = response.body.id
+        def optionalUser =  userRepository.findById(userId)
+        assert optionalUser.isPresent()
+        def user =  optionalUser.get()
+        assert user.name == userRequest.name
+        assert user.email == userRequest.email
+        assert user.city == userRequest.city
+        assert user.password == userRequest.password
+        assert user.age == userRequest.age
     }
 
     static class Initializer

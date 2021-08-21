@@ -1,4 +1,4 @@
-package com.example.socialmediakafka.application.service;
+package com.example.socialmediakafka.exception;
 
 import lombok.Getter;
 import lombok.Setter;

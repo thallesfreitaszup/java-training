@@ -1,6 +1,7 @@
-package com.example.socialmediakafka.application.service;
+package com.example.socialmediakafka.service;
 
-import com.example.socialmediakafka.application.repository.UserRepository;
+import com.example.socialmediakafka.exception.InternalServerError;
+import com.example.socialmediakafka.repository.UserRepository;
 import com.example.socialmediakafka.domain.User;
 import org.springframework.stereotype.Service;
 

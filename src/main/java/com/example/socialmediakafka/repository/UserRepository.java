@@ -1,4 +1,4 @@
-package com.example.socialmediakafka.application.repository;
+package com.example.socialmediakafka.repository;
 
 import com.example.socialmediakafka.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;

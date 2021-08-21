@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 //    PostService postService;
 //    public PostController(PostService postService) {
-//        this.postService = postService
+//        this.postService = postService;
 //    }
+//
 //    public PostResponse createPost(PostRequest postRequest){
 //
 //    }
